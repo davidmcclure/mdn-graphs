@@ -60,7 +60,7 @@ class Play:
         vertex_label_size=40,
         vertex_label_dist=1,
         vertex_size_range=(10, 100),
-        vertex_label_size_range=(10, 40),
+        vertex_label_size_range=(20, 40),
         arrow_size_range=(1, 5),
         edge_width_range=(1, 10),
         **kwargs
