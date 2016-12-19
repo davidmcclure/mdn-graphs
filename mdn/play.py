@@ -55,6 +55,7 @@ class Play:
 
     def plot(
         self,
+        fname,
         bbox=(2000, 2000),
         margin=200,
         vertex_label_size=40,
@@ -101,6 +102,8 @@ class Play:
         return igraph.plot(
 
             self.graph,
+            fname,
+
             margin=margin,
             bbox=bbox,
 
