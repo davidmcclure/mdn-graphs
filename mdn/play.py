@@ -55,13 +55,14 @@ class Play:
 
     def plot(
         self,
-        bbox=(1000, 1000),
+        bbox=(2000, 2000),
         margin=200,
-        vertex_label_size=10,
-        vertex_label_dist=3,
-        vertex_size_range=(10, 50),
-        arrow_size_range=(1, 3),
-        edge_width_range=(1, 3),
+        vertex_label_size=20,
+        vertex_label_dist=1,
+        vertex_size_range=(10, 100),
+        arrow_size_range=(1, 5),
+        edge_width_range=(1, 10),
+        **kwargs
     ):
 
         """
@@ -83,15 +84,24 @@ class Play:
         edge_width_scaler = MinMaxScaler(edge_width_range)
         edge_widths = edge_width_scaler.fit_transform(weights)
 
+        layout = self.graph.layout_fruchterman_reingold(
+            maxiter=5000,
+            weights='weight',
+            repulserad=30,
+            **kwargs
+        )
+
         return igraph.plot(
             self.graph,
+            'test.png',
             vertex_label_size=vertex_label_size,
             vertex_label_dist=vertex_label_dist,
+            edge_color='#aaa',
             bbox=bbox,
             margin=margin,
             edge_arrow_size=arrow_sizes,
             edge_width=edge_widths,
             vertex_size=vertex_sizes,
             vertex_label=self.graph.vs['name'],
-            layout=self.graph.layout_grid(),
+            layout=layout,
         )
