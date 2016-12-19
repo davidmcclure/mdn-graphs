@@ -1,5 +1,6 @@
 
 
+import numpy as np
 import csv
 import igraph
 
@@ -7,7 +8,7 @@ from collections import Counter
 from sklearn.preprocessing import MinMaxScaler
 
 
-class Graph:
+class Play:
 
     @classmethod
     def from_tsv(cls, path):
@@ -82,7 +83,7 @@ class Graph:
         edge_width_scaler = MinMaxScaler(edge_width_range)
         edge_widths = edge_width_scaler.fit_transform(weights)
 
-        return plot(
+        return igraph.plot(
             self.graph,
             vertex_label_size=vertex_label_size,
             vertex_label_dist=vertex_label_dist,
@@ -91,6 +92,6 @@ class Graph:
             edge_arrow_size=arrow_sizes,
             edge_width=edge_widths,
             vertex_size=vertex_sizes,
-            vertex_label=g.vs['name'],
-            layout=g.layout_grid(),
+            vertex_label=self.graph.vs['name'],
+            layout=self.graph.layout_grid(),
         )
