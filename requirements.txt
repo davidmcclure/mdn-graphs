@@ -3,3 +3,6 @@ ipython
 python-igraph
 jupyter
 matplotlib
+numpy
+scipy
+sklearn
