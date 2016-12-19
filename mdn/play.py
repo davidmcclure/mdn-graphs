@@ -57,9 +57,10 @@ class Play:
         self,
         bbox=(2000, 2000),
         margin=200,
-        vertex_label_size=20,
+        vertex_label_size=40,
         vertex_label_dist=1,
         vertex_size_range=(10, 100),
+        vertex_label_size_range=(10, 40),
         arrow_size_range=(1, 5),
         edge_width_range=(1, 10),
         **kwargs
@@ -75,6 +76,10 @@ class Play:
         # Node size
         vertex_size_scaler = MinMaxScaler(vertex_size_range)
         vertex_sizes = vertex_size_scaler.fit_transform(degrees)
+
+        # Node size
+        vertex_label_size_scaler = MinMaxScaler(vertex_label_size_range)
+        vertex_label_sizes = vertex_label_size_scaler.fit_transform(degrees)
 
         # Arrow size
         arrow_size_scaler = MinMaxScaler(arrow_size_range)
@@ -92,16 +97,20 @@ class Play:
         )
 
         return igraph.plot(
+
             self.graph,
-            'test.png',
-            vertex_label_size=vertex_label_size,
-            vertex_label_dist=vertex_label_dist,
-            edge_color='#aaa',
-            bbox=bbox,
             margin=margin,
+            bbox=bbox,
+
+            edge_color='#aaa',
+            vertex_label_dist=vertex_label_dist,
+
+            vertex_size=vertex_sizes,
+            vertex_label_size=vertex_label_sizes,
             edge_arrow_size=arrow_sizes,
             edge_width=edge_widths,
-            vertex_size=vertex_sizes,
+
             vertex_label=self.graph.vs['name'],
             layout=layout,
+
         )
