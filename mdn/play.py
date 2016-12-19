@@ -55,9 +55,9 @@ class Play:
 
     def plot(
         self,
-        bbox=(500, 500),
+        bbox=(1000, 1000),
         margin=100,
-        vertex_label_size=20,
+        vertex_label_size=10,
         vertex_label_dist=3,
         vertex_size_range=(10, 50),
         arrow_size_range=(1, 3),
