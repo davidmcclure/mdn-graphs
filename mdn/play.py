@@ -89,14 +89,14 @@ class Play:
         edge_width_scaler = MinMaxScaler(edge_width_range)
         edge_widths = edge_width_scaler.fit_transform(weights)
 
-        # layout = self.graph.layout_fruchterman_reingold(
-            # maxiter=5000,
-            # weights='weight',
-            # repulserad=30,
-            # **kwargs
-        # )
+        layout = self.graph.layout_fruchterman_reingold(
+            maxiter=5000,
+            weights='weight',
+            repulserad=30,
+            **kwargs
+        )
 
-        layout = self.graph.layout_grid()
+        # layout = self.graph.layout_grid()
 
         return igraph.plot(
 
