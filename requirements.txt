@@ -6,3 +6,5 @@ matplotlib
 numpy
 scipy
 sklearn
+cairocffi
+flake8
