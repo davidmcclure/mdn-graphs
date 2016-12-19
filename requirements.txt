@@ -1,3 +1,4 @@
 
 ipython
 python-igraph
+jupyter
