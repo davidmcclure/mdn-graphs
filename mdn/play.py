@@ -1,11 +1,8 @@
 
 
-import numpy as np
 import csv
-import igraph
 
 from collections import Counter
-from sklearn.preprocessing import MinMaxScaler
 from graphviz import Digraph
 
 
