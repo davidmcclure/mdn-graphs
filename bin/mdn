@@ -2,6 +2,11 @@
 
 
 import click
+import os
+
+from mdn.utils import scan_paths
+from mdn.play import Play
+
 
 @click.group()
 def cli():
@@ -9,8 +14,28 @@ def cli():
 
 
 @cli.command()
-def render():
-    print('render')
+@click.argument('corpus_dir', type=click.Path(exists=True))
+@click.argument('output_dir', type=click.Path())
+def render(corpus_dir, output_dir):
+    """Render each play.
+    """
+    for path in scan_paths(corpus_dir, '\.tsv'):
+
+        try:
+
+            play = Play.from_tsv(path)
+
+            rel_path = os.path.relpath(path, corpus_dir)
+            out_path = os.path.join(output_dir, rel_path)
+
+            out_dir = os.path.dirname(out_path)
+            out_fname = os.path.basename(out_path)
+
+            play.graph.render(out_fname, out_dir, cleanup=True)
+            print(out_fname)
+
+        except Exception as e:
+            print(e)
 
 
 if __name__ == '__main__':

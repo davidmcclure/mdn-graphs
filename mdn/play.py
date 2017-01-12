@@ -43,6 +43,7 @@ class Play:
         """
         self.graph = Digraph(
             engine='neato',
+            format='png',
             graph_attr=dict(
                 splines='true',
                 concentrate='true',
