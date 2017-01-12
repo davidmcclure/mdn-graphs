@@ -9,3 +9,4 @@ sklearn
 cairocffi
 flake8
 scandir
+graphviz
