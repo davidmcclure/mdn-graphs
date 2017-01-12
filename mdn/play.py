@@ -36,7 +36,8 @@ class Play:
             edges = Counter()
 
             for row in reader:
-                edges[row['speaker'], row['receiver']] += 1
+                if row['speaker'] != row['receiver']:
+                    edges[row['speaker'], row['receiver']] += 1
 
         return cls(edges)
 
@@ -49,16 +50,25 @@ class Play:
                 splines='true',
                 concentrate='true',
                 overlap='false',
-                dir='both',
             )
         )
 
         weights = list(edges.values())
 
-        edge_scale = LinearScale(
+        penwidth_scale = LinearScale(
             (min(weights), max(weights)),
-            (1, 5),
+            (0.5, 5),
+        )
+
+        arrowsize_scale = LinearScale(
+            (min(weights), max(weights)),
+            (0.5, 2),
         )
 
         for (c1, c2), count in edges.items():
-            self.graph.edge(c1, c2, arrowsize=str(edge_scale(count)))
+            self.graph.edge(
+                c1, c2,
+                penwidth=str(penwidth_scale(count)),
+                arrowsize=str(arrowsize_scale(count)),
+                dir='both',
+            )
