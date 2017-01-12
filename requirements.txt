@@ -1,12 +1,8 @@
 
 ipython
-python-igraph
 jupyter
 matplotlib
-numpy
-scipy
-sklearn
-cairocffi
 flake8
 scandir
 graphviz
+click
