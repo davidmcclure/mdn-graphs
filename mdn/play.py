@@ -68,5 +68,5 @@ class Play:
                 c1, c2,
                 penwidth=str(penwidth_scale(count)),
                 arrowsize=str(arrowsize_scale(count)),
-                dir='both',
+                dirType='forward',
             )
