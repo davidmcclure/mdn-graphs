@@ -1,72 +1,34 @@
 
 
 import csv
-
-from collections import Counter
-from graphviz import Digraph
+import networkx as nx
 
 
-class LinearScale:
-
-    def __init__(self, domain, range_):
-        self.domain = domain
-        self.range = range_
-
-    def __call__(self, val):
-        ratio = float(val - self.domain[0]) / (self.domain[1] - self.domain[0])
-        return self.range[0] + ratio*(self.range[1]-self.range[0])
-
-
-class Play:
+class Play(nx.DiGraph):
 
     @classmethod
     def from_tsv(cls, path):
         """Read a TSV file.
         """
+        graph = cls()
+
         with open(path) as fh:
 
-            # Remove carriage returns from speeches.
+            # Remove carriage returns, split on tab.
             rows = fh.read().replace('\r', '').split('\n')
-
             reader = csv.DictReader(rows, delimiter='\t')
 
-            edges = Counter()
-
             for row in reader:
-                if row['speaker'] != row['receiver']:
-                    edges[row['speaker'], row['receiver']] += 1
 
-        return cls(edges)
+                c1 = row['speaker']
+                c2 = row['receiver']
 
-    def __init__(self, edges):
-        """Construct the graph.
-        """
-        self.graph = Digraph(
-            engine='neato',
-            format='png',
-            graph_attr=dict(
-                splines='true',
-                concentrate='true',
-                overlap='false',
-            )
-        )
+                # Increment weight, if edge exists.
+                if graph.has_edge(c1, c2):
+                    graph[c1][c2]['weight'] += 1
 
-        weights = list(edges.values())
+                # Or, initialize edge.
+                else:
+                    graph.add_edge(c1, c2, weight=1)
 
-        penwidth_scale = LinearScale(
-            (min(weights), max(weights)),
-            (0.5, 5),
-        )
-
-        arrowsize_scale = LinearScale(
-            (min(weights), max(weights)),
-            (0.5, 2),
-        )
-
-        for (c1, c2), count in edges.items():
-            self.graph.edge(
-                c1, c2,
-                penwidth=str(penwidth_scale(count)),
-                arrowsize=str(arrowsize_scale(count)),
-                dirType='forward',
-            )
+        return graph
