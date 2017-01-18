@@ -27,6 +27,10 @@ class Play(nx.DiGraph):
                 c1 = row['speaker']
                 c2 = row['receiver']
 
+                # Ignore self-loops.
+                if c1 != c2:
+                    continue
+
                 # Increment weight, if edge exists.
                 if graph.has_edge(c1, c2):
                     graph[c1][c2]['weight'] += 1
@@ -111,7 +115,6 @@ class Play(nx.DiGraph):
             vertex_size=vertex_sizes,
             vertex_label_size=vertex_label_sizes,
             edge_arrow_size=arrow_sizes,
-            # edge_width=edge_widths,
             edge_curved=False,
 
             vertex_label=graph.vs['name'],
