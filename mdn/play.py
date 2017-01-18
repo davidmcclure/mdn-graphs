@@ -134,6 +134,7 @@ class Play(nx.DiGraph):
             graph_attr=dict(
                 splines='true',
                 overlap='false',
+                sep='0.5'
             )
         )
 
