@@ -12,3 +12,4 @@ python-igraph
 networkx
 sklearn
 cairocffi
+attrs
