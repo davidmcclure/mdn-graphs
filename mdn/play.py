@@ -66,7 +66,7 @@ class Play(nx.DiGraph):
         vertex_label_dist=1,
         vertex_size_range=(10, 100),
         vertex_label_size_range=(20, 40),
-        arrow_size_range=(1, 5),
+        arrow_size_range=(0.5, 3),
         edge_width_range=(1, 10),
     ):
         """Render with igraph.
@@ -111,7 +111,7 @@ class Play(nx.DiGraph):
             vertex_size=vertex_sizes,
             vertex_label_size=vertex_label_sizes,
             edge_arrow_size=arrow_sizes,
-            edge_width=edge_widths,
+            # edge_width=edge_widths,
             edge_curved=False,
 
             vertex_label=graph.vs['name'],
