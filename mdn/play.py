@@ -37,6 +37,15 @@ class Play(nx.DiGraph):
 
         return graph
 
+    def prune(self):
+        """Remove nodes with betweenness=0.
+        """
+        bc = nx.betweenness_centrality(self)
+
+        for node, score in bc.items():
+            if score == 0:
+                self.remove_node(node)
+
     def as_igraph(self):
         """Convert to igraph.
         """
