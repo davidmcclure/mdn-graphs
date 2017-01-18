@@ -93,5 +93,6 @@ ENV/
 # MDN
 /notebooks/corpus
 /notebooks/graphs
-
 /renders
+*.gv
+*.gv.png
