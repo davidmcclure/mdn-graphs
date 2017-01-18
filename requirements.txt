@@ -1,9 +1,14 @@
 
 ipython
 jupyter
+numpy
+scipy
 matplotlib
 flake8
 scandir
 graphviz
 click
+python-igraph
 networkx
+sklearn
+cairocffi
