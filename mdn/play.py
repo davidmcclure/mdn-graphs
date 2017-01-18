@@ -6,6 +6,9 @@ import networkx as nx
 import igraph
 
 from sklearn.preprocessing import MinMaxScaler
+from graphviz import Digraph
+
+from mdn.utils import LinearScale
 
 
 class Play(nx.DiGraph):
@@ -28,7 +31,7 @@ class Play(nx.DiGraph):
                 c2 = row['receiver']
 
                 # Ignore self-loops.
-                if c1 != c2:
+                if c1 == c2:
                     continue
 
                 # Increment weight, if edge exists.
@@ -121,3 +124,40 @@ class Play(nx.DiGraph):
             layout=layout,
 
         )
+
+    def render_graphviz(self):
+        """Render with graphviz.
+        """
+        graph = Digraph(
+            engine='neato',
+            format='png',
+            graph_attr=dict(
+                splines='true',
+                overlap='false',
+            )
+        )
+
+        weights = nx.get_edge_attributes(self, 'weight').values()
+
+        penwidth_scale = LinearScale(
+            min(weights), max(weights),
+            0.5, 5,
+        )
+
+        arrowsize_scale = LinearScale(
+            min(weights), max(weights),
+            0.5, 2,
+        )
+
+        for c1, c2, d in self.edges(data=True):
+
+            penwidth = penwidth_scale(d['weight'])
+            arrowsize = arrowsize_scale(d['weight'])
+
+            graph.edge(
+                c1, c2,
+                penwidth=str(penwidth),
+                arrowsize=str(arrowsize),
+            )
+
+        return graph
