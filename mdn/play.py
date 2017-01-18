@@ -40,7 +40,7 @@ class Play(nx.DiGraph):
     def as_igraph(self):
         """Convert to igraph.
         """
-        graph = igraph.Graph()
+        graph = igraph.Graph(directed=True)
 
         graph.add_vertices(self.nodes())
 
@@ -51,7 +51,7 @@ class Play(nx.DiGraph):
 
     def render_igraph(
         self,
-        bbox=(2000, 2000),
+        bbox=(1000, 1000),
         margin=200,
         vertex_label_size=40,
         vertex_label_dist=1,
