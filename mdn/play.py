@@ -85,7 +85,7 @@ class Play(nx.DiGraph):
 
         layout = graph.layout_fruchterman_reingold(
             maxiter=5000,
-            weights='weight',
+            weights=weights,
             repulserad=30,
         )
 
@@ -103,6 +103,7 @@ class Play(nx.DiGraph):
             vertex_label_size=vertex_label_sizes,
             edge_arrow_size=arrow_sizes,
             edge_width=edge_widths,
+            edge_curved=False,
 
             vertex_label=graph.vs['name'],
             layout=layout,
