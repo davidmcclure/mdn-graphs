@@ -125,7 +125,7 @@ class Play(nx.DiGraph):
 
         )
 
-    def render_graphviz(self):
+    def render_graphviz(self, sep=0.5):
         """Render with graphviz.
         """
         graph = Digraph(
@@ -134,7 +134,7 @@ class Play(nx.DiGraph):
             graph_attr=dict(
                 splines='true',
                 overlap='false',
-                sep='0.3'
+                sep=str(sep)
             )
         )
 
