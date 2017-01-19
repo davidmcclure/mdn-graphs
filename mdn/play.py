@@ -7,6 +7,7 @@ import igraph
 
 from sklearn.preprocessing import MinMaxScaler
 from graphviz import Digraph
+from titlecase import titlecase
 
 from mdn.utils import LinearScale
 
@@ -27,8 +28,8 @@ class Play(nx.DiGraph):
 
             for row in reader:
 
-                c1 = row['speaker']
-                c2 = row['receiver']
+                c1 = titlecase(row['speaker'])
+                c2 = titlecase(row['receiver'])
 
                 # Ignore self-loops.
                 if c1 == c2:

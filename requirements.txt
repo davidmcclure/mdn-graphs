@@ -13,3 +13,4 @@ networkx
 sklearn
 cairocffi
 attrs
+titlecase
