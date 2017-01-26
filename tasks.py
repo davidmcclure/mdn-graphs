@@ -4,6 +4,7 @@ import json
 
 from invoke import task
 
+from mdn.utils import open_makedirs
 from mdn.corpus import Corpus
 
 
@@ -15,5 +16,5 @@ def write_paths(ctx):
 
     paths = list(c.rel_paths())
 
-    with open('site/src/js/paths.json', 'w') as fh:
+    with open_makedirs('site/data/paths.json', 'w') as fh:
         json.dump(paths, fh)

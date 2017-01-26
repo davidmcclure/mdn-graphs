@@ -5,6 +5,8 @@ import scandir
 import os
 import attr
 
+from contextlib import contextmanager
+
 
 def scan_paths(root_dir, pattern):
 
@@ -40,3 +42,19 @@ class LinearScale(object):
         """
         ratio = float(val-self.d1) / (self.d2-self.d1)
         return self.r1 + ratio*(self.r2-self.r1)
+
+
+@contextmanager
+def open_makedirs(fpath, *args, **kwargs):
+
+    """
+    Create the directory for a file, open it.
+    """
+
+    path = os.path.dirname(fpath)
+
+    if not os.path.exists(path):
+        os.makedirs(path)
+
+    with open(fpath, *args, **kwargs) as fh:
+        yield fh
