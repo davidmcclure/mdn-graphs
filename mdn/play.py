@@ -66,6 +66,24 @@ class Play(nx.DiGraph):
 
         return graph
 
+    def as_d3_data(self):
+        """Generate node / link data for d3.
+
+        Returns: dict
+        """
+        nodes = [dict(id=name) for name in self.nodes()],
+
+        links = [
+            dict(
+                source=source,
+                target=target,
+                weight=data['weight'],
+            )
+            for source, target, data in self.edges(data=True)
+        ]
+
+        return dict(nodes=nodes, links=links)
+
     def render_igraph(
         self,
         bbox=(1000, 1000),
