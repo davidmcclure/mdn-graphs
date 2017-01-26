@@ -1,5 +1,7 @@
 
 
+import os
+
 from mdn.utils import scan_paths
 
 
@@ -15,4 +17,4 @@ class Corpus:
 
     def rel_paths(self):
         for path in self.paths():
-            yield '/'.join(path.split('/')[-2:])
+            yield os.path.relpath(path, self.path)
