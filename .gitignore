@@ -94,5 +94,5 @@ ENV/
 /notebooks/corpus
 /notebooks/graphs
 /renders
-*.gv
-*.gv.png
+*.tsv
+*.tsv.png

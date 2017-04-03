@@ -22,8 +22,14 @@ class Play(nx.DiGraph):
 
         with open(path) as fh:
 
+            rows = (
+                fh.read()
+                .decode('ascii', 'ignore')
+                .replace('\r', '')
+                .split('\n')
+            )
+
             # Remove carriage returns, split on tab.
-            rows = fh.read().replace('\r', '').split('\n')
             reader = csv.DictReader(rows, delimiter='\t')
 
             for row in reader:

@@ -1,0 +1,18 @@
+digraph {
+	graph [overlap=false sep=0.5 splines=true]
+			Rutile -> Titus [arrowsize=0.528985507246 penwidth=0.586956521739]
+			Arsace -> Antiochus [arrowsize=1.46376811594 penwidth=3.39130434783]
+			Titus -> Paulin [arrowsize=1.74637681159 penwidth=4.23913043478]
+			Titus -> Antiochus [arrowsize=1.25362318841 penwidth=2.76086956522]
+			Titus -> Phnice [arrowsize=0.5 penwidth=0.5]
+			Titus -> Brnice [arrowsize=1.76086956522 penwidth=4.28260869565]
+			Paulin -> Titus [arrowsize=1.28985507246 penwidth=2.86956521739]
+			Antiochus -> Brnice [arrowsize=1.45652173913 penwidth=3.36956521739]
+			Antiochus -> Titus [arrowsize=0.985507246377 penwidth=1.95652173913]
+			Antiochus -> Arsace [arrowsize=1.4347826087 penwidth=3.30434782609]
+			Phnice -> Brnice [arrowsize=0.702898550725 penwidth=1.10869565217]
+			Brnice -> Suite [arrowsize=0.514492753623 penwidth=0.54347826087]
+			Brnice -> Titus [arrowsize=2.0 penwidth=5.0]
+			Brnice -> Antiochus [arrowsize=1.23913043478 penwidth=2.71739130435]
+			Brnice -> Phnice [arrowsize=1.1884057971 penwidth=2.5652173913]
+}
