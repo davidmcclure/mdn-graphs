@@ -95,4 +95,3 @@ ENV/
 /notebooks/graphs
 /renders
 *.tsv
-*.tsv.png
