@@ -32,7 +32,7 @@ class Play(nx.DiGraph):
                 c2 = titlecase(row['receiver'])
 
                 # Ignore self-loops.
-                if c1 == c2:
+                if c1 == c2 or ',' in c1 or ',' in c2:
                     continue
 
                 # Increment weight, if edge exists.
@@ -45,13 +45,22 @@ class Play(nx.DiGraph):
 
         return graph
 
-    def prune(self):
-        """Remove nodes with betweenness=0.
+    def prune_betweenness_zero(self):
+        """Remove nodes with betweenness == 0.
         """
         bc = nx.betweenness_centrality(self)
 
         for node, score in bc.items():
             if score == 0:
+                self.remove_node(node)
+
+    def prune_degree_one(self):
+        """Remove nodes with weighted degree == 1, only 1 utterance.
+        """
+        degree = nx.degree(self, weight='weight')
+
+        for node, score in degree.items():
+            if score == 1:
                 self.remove_node(node)
 
     def as_igraph(self):
