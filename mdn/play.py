@@ -34,20 +34,24 @@ class Play(nx.DiGraph):
 
             for row in reader:
 
-                c1 = titlecase(row['speaker'])
-                c2 = titlecase(row['receiver'])
+                c1s = map(titlecase, row['speaker'].split(','))
+                c2s = map(titlecase, row['receiver'].split(','))
 
-                # Ignore self-loops.
-                if c1 == c2 or ',' in c1 or ',' in c2:
-                    continue
+                # Edges between all combinations.
+                for c1 in c1s:
+                    for c2 in c2s:
 
-                # Increment weight, if edge exists.
-                if graph.has_edge(c1, c2):
-                    graph[c1][c2]['weight'] += 1
+                        # Ignore self-loops.
+                        if c1 == c2:
+                            continue
 
-                # Or, initialize edge.
-                else:
-                    graph.add_edge(c1, c2, weight=1)
+                        # Increment weight, if edge exists.
+                        if graph.has_edge(c1, c2):
+                            graph[c1][c2]['weight'] += 1
+
+                        # Or, initialize edge.
+                        else:
+                            graph.add_edge(c1, c2, weight=1)
 
         return graph
 
