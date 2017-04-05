@@ -55,23 +55,19 @@ class Play(nx.DiGraph):
 
         return graph
 
-    def prune_betweenness_zero(self):
-        """Remove nodes with betweenness == 0.
+    def betweenness_zero_nodes(self):
+        """Get nodes with betweenness == 0.
         """
         bc = nx.betweenness_centrality(self)
 
-        for node, score in bc.items():
-            if score == 0:
-                self.remove_node(node)
+        return [node for node, score in bc.items() if score == 0]
 
-    def prune_degree_one(self):
+    def degree_one_nodes(self):
         """Remove nodes with weighted degree == 1, only 1 utterance.
         """
         degree = nx.degree(self, weight='weight')
 
-        for node, score in degree.items():
-            if score == 1:
-                self.remove_node(node)
+        return [node for node, score in degree.items() if score == 1]
 
     def as_igraph(self):
         """Convert to igraph.
