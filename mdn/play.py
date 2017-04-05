@@ -3,10 +3,10 @@
 import csv
 import numpy as np
 import networkx as nx
+import pygraphviz as pgv
 import igraph
 
 from sklearn.preprocessing import MinMaxScaler
-from graphviz import Digraph
 from titlecase import titlecase
 
 from mdn.utils import LinearScale
@@ -166,37 +166,32 @@ class Play(nx.DiGraph):
     def render_graphviz(self, sep=0.5):
         """Render with graphviz.
         """
-        graph = Digraph(
-            engine='neato',
-            format='png',
-            graph_attr=dict(
-                splines='true',
-                overlap='false',
-                sep=str(sep)
-            )
-        )
+        graph = pgv.AGraph()
+        graph.graph_attr['splines'] = 'true'
+        graph.graph_attr['overlap'] = 'false'
+        graph.graph_attr['sep'] = str(sep)
 
         weights = nx.get_edge_attributes(self, 'weight').values()
-
-        penwidth_scale = LinearScale(
-            min(weights), max(weights),
-            0.5, 5,
-        )
 
         arrowsize_scale = LinearScale(
             min(weights), max(weights),
             0.5, 2,
         )
 
+        penwidth_scale = LinearScale(
+            min(weights), max(weights),
+            0.5, 5,
+        )
+
         for c1, c2, d in self.edges(data=True):
 
-            penwidth = penwidth_scale(d['weight'])
+            graph.add_edge(c1, c2)
+
             arrowsize = arrowsize_scale(d['weight'])
+            penwidth = penwidth_scale(d['weight'])
 
-            graph.edge(
-                c1, c2,
-                penwidth=str(penwidth),
-                arrowsize=str(arrowsize),
-            )
+            edge = graph.get_edge(c1, c2)
+            edge.attr['arrowsize'] = str(arrowsize)
+            edge.attr['penwidth'] = str(penwidth)
 
-        return graph
+        return graph.to_directed()
