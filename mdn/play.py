@@ -15,7 +15,7 @@ from mdn.utils import LinearScale
 class Play(nx.DiGraph):
 
     @classmethod
-    def from_tsv(cls, path):
+    def from_corpus(cls, path):
         """Read a TSV file.
         """
         graph = cls()
@@ -52,6 +52,32 @@ class Play(nx.DiGraph):
                         # Or, initialize edge.
                         else:
                             graph.add_edge(c1, c2, weight=1)
+
+        return graph
+
+    @classmethod
+    def from_model(cls, path):
+        """Read a model CSV file.
+        """
+        graph = cls()
+
+        with open(path) as fh:
+
+            # Remove carriage returns, split on tab.
+            reader = csv.DictReader(fh, delimiter='\t')
+
+            for row in reader:
+
+                c1 = row['speaker']
+                c2 = row['receiver']
+
+                # Increment weight, if edge exists.
+                if graph.has_edge(c1, c2):
+                    graph[c1][c2]['weight'] += 1
+
+                # Or, initialize edge.
+                else:
+                    graph.add_edge(c1, c2, weight=1)
 
         return graph
 
