@@ -9,7 +9,7 @@ import igraph
 from sklearn.preprocessing import MinMaxScaler
 from titlecase import titlecase
 
-from mdn.utils import LinearScale
+from mdn.utils import LinearScale, clean_name
 
 
 class Play(nx.DiGraph):
@@ -34,8 +34,8 @@ class Play(nx.DiGraph):
 
             for row in reader:
 
-                c1s = map(titlecase, row['speaker'].split(','))
-                c2s = map(titlecase, row['receiver'].split(','))
+                c1s = map(clean_name, row['speaker'].split(','))
+                c2s = map(clean_name, row['receiver'].split(','))
 
                 # Edges between all combinations.
                 for c1 in c1s:

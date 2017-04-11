@@ -93,5 +93,5 @@ ENV/
 # MDN
 /notebooks/corpus
 /notebooks/graphs
-/renders
+/notebooks/renders
 *.tsv

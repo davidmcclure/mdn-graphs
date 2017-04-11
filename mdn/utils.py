@@ -5,6 +5,8 @@ import scandir
 import os
 import attr
 
+from titlecase import titlecase
+
 
 def scan_paths(root_dir, pattern):
 
@@ -40,3 +42,9 @@ class LinearScale(object):
         """
         ratio = float(val-self.d1) / (self.d2-self.d1)
         return self.r1 + ratio*(self.r2-self.r1)
+
+
+def clean_name(name):
+    """Normalize a character name.
+    """
+    return titlecase(name).strip()
