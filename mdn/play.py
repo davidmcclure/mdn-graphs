@@ -6,6 +6,7 @@ import networkx as nx
 import pygraphviz as pgv
 import igraph
 
+from collections import OrderedDict
 from sklearn.preprocessing import MinMaxScaler
 from titlecase import titlecase
 
@@ -80,6 +81,16 @@ class Play(nx.DiGraph):
                     graph.add_edge(c1, c2, weight=1)
 
         return graph
+
+    def utterance_counts(self):
+        """Map character -> utterances.
+        """
+        counts = [
+            (node, sum(v['weight'] for _, v in self.edge[node].items()))
+            for node in self.nodes()
+        ]
+
+        return OrderedDict(sorted(counts, key=lambda x: x[1], reverse=True))
 
     def prune_betweenness_zero(self):
         """Remove nodes with betweenness == 0.
